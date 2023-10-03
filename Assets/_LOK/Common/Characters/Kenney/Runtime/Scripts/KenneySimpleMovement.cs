@@ -22,18 +22,33 @@ namespace LOK.Common.Characters.Kenney
             // - Read Move Dir
             // - Write Move Orient
             // - Write Move Speed
+            Movable2D _Movable = gameObject.GetComponent<Movable2D>();
+            _Movable.MoveSpeed = _movementsData.Speed;
         }
 
         private void Update()
         {
             //If Movements are locked
             //Force MoveSpeed to 0
-
             //If there is MoveDir
-                //Set MoveSpeed to MovementsData.SpeedMax
-                //Set Move OrientDir to Movedir
+            //Set MoveSpeed to MovementsData.SpeedMax
+            //Set Move OrientDir to Movedir
             //Else
-                //Set MoveSpeed to 0
+            //Set MoveSpeed to 0
+            Movable2D _Movable = gameObject.GetComponent<Movable2D>();
+            if (_Movable.AreMovementsLocked)
+            {
+                _Movable.MoveSpeed = 0;
+            }
+            _Movable.OrientDir = _Movable.MoveDir;
+            if(_Movable.MoveDir != Vector2.zero)
+            {
+                _Movable.MoveSpeed = _movementsData.SpeedMax;
+            }
+            else
+            {
+                _Movable.MoveSpeed = 0;
+            }
         }
     }
 }

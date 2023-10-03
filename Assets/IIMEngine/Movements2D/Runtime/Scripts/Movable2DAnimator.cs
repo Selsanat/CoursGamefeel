@@ -26,10 +26,10 @@ namespace IIMEngine.Movements2D
             //Convert _isMovingParameter to Hash 
             //(Improve performance when calling Animator.SetParameter)
             _isMovingParameterHash = Animator.StringToHash(_isMovingParameter);
-            
+
             //Find Movable Interfaces inside _movableGameObject needed to check if object is moving
             //(You'll probably need to check if object movements are locked and if object move speed > 0)
-            
+            Movable2D movable = _movableGameObject.GetComponent<Movable2D>();
             //Find Animator (attached to this gameObject)
         }
 
@@ -38,6 +38,10 @@ namespace IIMEngine.Movements2D
             //Check if object is moving (store it inside a bool)
             //Bonus : Get Object movement speed and speed max to interpolate animator speed
             //Set animator parameter bool "IsMoving" according to movements infos
+            Movable2D movable = _movableGameObject.GetComponent<Movable2D>();
+            Animator anim = _movableGameObject.GetComponentInChildren<Animator>();
+            anim.SetBool("IsMoving", movable.MoveSpeed != 0);
+            //anim.speed = movable.MoveSpeedMax / movable.MoveSpeed;
         }
     }
 }

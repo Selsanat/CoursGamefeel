@@ -31,22 +31,29 @@ namespace LOK.Common.Characters.Kenney
         {
             _orientReader = _entityRoot.GetComponent<IMove2DOrientReader>();
             //Store _startScaleX using _orientRoot
+            _startScaleX = _orientReader.OrientX;
         }
 
         private void OnEnable()
         {
             //Set orientRoot localScale using orientReader orientX
+            _orientRoot.localScale.Set(_orientReader.OrientX, _orientRoot.localScale.y,0);
         }
 
         private void OnDisable()
         {
             //Reset FLipping State
+            _isFlipping = false;
         }
 
         private void Update()
         {
             //Detect if kenney need to flip ScaleX (using orientReader and current scale.x)
             //Bonus : you can create a flip animation using _flipDuration
+            if (_orientReader.OrientX !=  _startScaleX)
+            {
+                _isFlipping = true;
+            }
         }
     }
 }
